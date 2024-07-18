@@ -58,12 +58,14 @@ repoList.addEventListener("click", function (e) {
 const getRepoInfo = async function (repoName) {
   const fetchInfo = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
   const repoData = await fetchInfo.json();
+
   const fetchLanguages = await fetch(repoData.languages_url);
   const languageData = await fetchLanguages.json();
   const languages = [];
   for (const language in languageData) {
     languages.push(language);
   }
+
   displayRepoInfo(repoData, languages);
 };
 
@@ -93,6 +95,7 @@ filterInput.addEventListener("input", function (e) {
   const searchText = e.target.value;
   const repos = document.querySelectorAll(".repo");
   const searchLowerText = searchText.toLowerCase();
+
   for (const repo of repos) {
     const repoLowerText = repo.innerText.toLowerCase();
     if (repoLowerText.includes(searchLowerText)) {
